@@ -9,9 +9,16 @@ app.set('view engine', 'ejs');
 //res.render uses the view engine that I set up previously to render a particular page in this case "list.ejs"
 app.get('/', (req, res) => {
 
-  const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Saturday"];
-  const dayIndex = new Date().getDay();
-  const currentDay = weekday[dayIndex];
+  const today = new Date();
+
+  let options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  };
+
+  const currentDay = today.toLocaleDateString("en-US", options);
 
   res.render('list', {currentDay: currentDay});
 });
