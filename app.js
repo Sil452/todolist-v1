@@ -5,8 +5,8 @@ let tasks = ["Wake up!"];
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 app.set('view engine', 'ejs');
-
 
 app.get('/', (req, res) => {
 
@@ -31,7 +31,9 @@ app.get('/', (req, res) => {
 app.post("/", function(req, res){
 
   const newTask = req.body.newTask;
-  tasks.push(newTask);
+  if(newTask.replace(/\s/g, '').length > 0){ 
+    tasks.push(newTask);
+  }
 
   res.redirect("/");
 });
